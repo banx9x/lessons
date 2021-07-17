@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 3,
+      "username": "banx9x",
+      "password": "123456",
+      "avatar": "upload/avatar/banx9x-1626406393453.jpeg"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "fullname": "Nguyễn Ba",
+      "email": "ba@techmaster.vn"
+    },
+    {
+      "username": "banx9x",
+      "password": "123456",
+      "id": 2
+    }
+  ]
+}

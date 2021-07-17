@@ -1,0 +1,177 @@
+/* Header */
+.header__logo {
+    display: block;
+    padding: 35px;
+    text-decoration: none;
+    color: #000000;
+}
+
+.icon-wrapper {
+    background-color: #8db1ab;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.icon {
+    width: 24px;
+}
+
+.brand,
+.slogan {
+    text-transform: uppercase;
+}
+
+.brand {
+    line-height: 1;
+    font-size: 26px;
+    letter-spacing: 2px;
+}
+
+.slogan {
+    margin-top: -5px;
+    color: #8db1ab;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn--collapse {
+    background-color: transparent;
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+}
+
+.btn--collapse .icon {
+    width: 20px;
+    margin-right: 10px;
+}
+
+/* Menu */
+.nav {
+    background-color: #dfe9e7;
+    border-bottom: 1px solid #dfe9e7;
+}
+
+.dropdown {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+.menu {
+    display: block;
+}
+
+.menu__item {
+    text-align: right;
+}
+
+.menu__link {
+    padding: 10px;
+}
+
+@media (min-width: 992px) {
+    .nav {
+        background-color: transparent;
+    }
+
+    .dropdown {
+        height: auto;
+    }
+
+    .btn--collapse {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+    }
+
+    .menu__link {
+        padding: 20px;
+    }
+}
+
+.menu__link {
+    color: #000000;
+    display: block;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu__link--active {
+    color: #8db1ab;
+}
+
+/* Projects */
+.section__projects {
+    padding: 50px 0;
+    border-bottom: 1px solid #dfe9e7;
+}
+
+.project-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Footer */
+.footer {
+    padding: 100px 0;
+}
+
+.footer__heading {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer__brand {
+    margin-bottom: 20px;
+}
+
+.footer__slogan {
+    font-weight: 600;
+}
+
+.social__item {
+    background-color: #f5f6f8;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.social__item .icon {
+    width: 20px;
+}
+
+.footer__menu__item {
+    margin-bottom: 10px;
+}
+
+.footer__menu__link {
+    color: #000000;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.copyright {
+    font-weight: 600;
+    margin-top: 100px;
+}
+
+.footer a:hover {
+    text-decoration: 2px underline;
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XO</title>
+    <style>
+      :root {
+        --o: #0a97b0;
+        --x: #dab8f3;
+        --bg: #f7f7f7;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      td {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        background-color: var(--bg);
+        border-radius: 10px;
+        transform: rotateY(180deg);
+        transition: transform 0.3s, color 0.15s 0.15s;
+        color: transparent;
+      }
+
+      .X {
+        background-color: var(--x);
+        color: #333333;
+      }
+
+      .O {
+        background-color: var(--o);
+        color: #333333;
+      }
+
+      .container {
+        height: 100vh;
+        min-height: 550px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .info {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: var(--bg);
+        padding: 30px 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #next {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      #reset {
+        padding: 10px 15px;
+        border: 0;
+        border-radius: 0;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      #reset:not(:disabled) {
+        background-color: #ffffff;
+      }
+
+      .Xwin {
+        animation: xblink 1s 10 0.3s;
+      }
+
+      @keyframes xblink {
+        from {
+          background-color: var(--x);
+        }
+
+        50% {
+          background-color: var(--bg);
+        }
+
+        to {
+          background-color: var(--x);
+        }
+      }
+
+      .Owin {
+        animation: oblink 1s 10 0.3s;
+      }
+
+      @keyframes oblink {
+        from {
+          background-color: var(--o);
+        }
+
+        50% {
+          background-color: var(--bg);
+        }
+
+        to {
+          background-color: var(--o);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <table>
+        <tbody id="board"></tbody>
+      </table>
+    </div>
+
+    <div class="info">
+      <p id="next"></p>
+      <button id="reset" disabled>Re-play</button>
+    </div>
+
+    <script>
+      var n = 10;
+      var end = false;
+      var count = 0;
+      var turn = "X";
+      next.textContent = "Turn: " + turn;
+
+      var sound = function () {
+        let audio = new Audio();
+        audio.src = "sound.mp3";
+        audio.play();
+      };
+
+      var firework = function () {
+        let img = new Image();
+        img.src = "source.gif";
+        img.style.position = "absolute";
+        img.style.top = 0;
+        img.style.left = 0;
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.objectFit = "cover";
+        img.style.opacity = 0.5;
+        document.body.append(img);
+        setTimeout(() => img.remove(), 10000);
+      };
+
+      var click = function (e) {
+        if (!end) {
+          let check = false;
+
+          e.currentTarget.textContent = turn;
+          e.currentTarget.style.transform = "rotateY(0deg)";
+          e.currentTarget.classList.add(turn);
+
+          let rowIndex = this.parentElement.rowIndex;
+          let cellIndex = this.cellIndex;
+
+          horizonal(turn, rowIndex, cellIndex) && (check = true);
+          vertical(turn, rowIndex, cellIndex) && (check = true);
+          diagonal1(turn, rowIndex, cellIndex) && (check = true);
+          diagonal2(turn, rowIndex, cellIndex) && (check = true);
+
+          if (check) {
+            sound();
+            firework();
+            end = !end;
+            next.textContent = turn + " Win";
+            reset.disabled = false;
+            return;
+          }
+
+          count++;
+          turn = turn == "X" ? "O" : "X";
+          next.textContent = "Turn: " + turn;
+        }
+
+        if (count >= n * n) {
+          end = !end;
+          next.textContent = "All loser 🤣";
+          reset.disabled = false;
+        }
+      };
+
+      function createRow() {
+        var tr = document.createElement("tr");
+
+        for (var i = 0; i < n; i++) {
+          var td = document.createElement("td");
+          td.addEventListener("click", click, { once: true });
+          tr.append(td);
+        }
+
+        return tr;
+      }
+
+      function createBoard() {
+        var fr = new DocumentFragment();
+
+        for (var i = 0; i < n; i++) {
+          fr.append(createRow());
+        }
+
+        return fr;
+      }
+
+      board.append(createBoard());
+
+      function horizonal(turn, rowIndex, cellIndex) {
+        let countHorizonal = [board.rows[rowIndex].cells[cellIndex]];
+        for (let i = cellIndex - 1; i >= 0; i--) {
+          if (board.rows[rowIndex].cells[i].textContent == turn) {
+            countHorizonal.push(board.rows[rowIndex].cells[i]);
+          } else {
+            break;
+          }
+        }
+        for (let i = cellIndex + 1; i < n; i++) {
+          if (board.rows[rowIndex].cells[i].textContent == turn) {
+            countHorizonal.push(board.rows[rowIndex].cells[i]);
+          } else break;
+        }
+
+        if (countHorizonal.length >= 5) {
+          countHorizonal.forEach((i) => i.classList.add(turn + "win"));
+          return true;
+        }
+
+        return false;
+      }
+
+      function vertical(turn, rowIndex, cellIndex) {
+        let countVertical = [board.rows[rowIndex].cells[cellIndex]];
+        for (let i = rowIndex - 1; i >= 0; i--) {
+          if (board.rows[i].cells[cellIndex].textContent == turn) {
+            countVertical.push(board.rows[i].cells[cellIndex]);
+          } else {
+            break;
+          }
+        }
+        for (let i = rowIndex + 1; i < n; i++) {
+          if (board.rows[i].cells[cellIndex].textContent == turn) {
+            countVertical.push(board.rows[i].cells[cellIndex]);
+          } else {
+            break;
+          }
+        }
+
+        if (countVertical.length >= 5) {
+          countVertical.forEach((i) => i.classList.add(turn + "win"));
+          return true;
+        }
+
+        return false;
+      }
+
+      function diagonal1(turn, rowIndex, cellIndex) {
+        let countDiagonal = [board.rows[rowIndex].cells[cellIndex]];
+
+        // Check nửa trên
+        for (
+          let row = rowIndex - 1, cell = cellIndex - 1;
+          row >= 0 && cell >= 0;
+          row--, cell--
+        ) {
+          if (board.rows[row].cells[cell].textContent == turn) {
+            countDiagonal.push(board.rows[row].cells[cell]);
+          } else {
+            break;
+          }
+        }
+
+        // Check nửa dưới
+        for (
+          let row = rowIndex + 1, cell = cellIndex + 1;
+          row < n && cell < n;
+          row++, cell++
+        ) {
+          if (board.rows[row].cells[cell].textContent == turn) {
+            countDiagonal.push(board.rows[row].cells[cell]);
+          } else {
+            break;
+          }
+        }
+
+        if (countDiagonal.length >= 5) {
+          countDiagonal.forEach((i) => i.classList.add(turn + "win"));
+          return true;
+        }
+
+        return false;
+      }
+
+      function diagonal2(turn, rowIndex, cellIndex) {
+        let countDiagonal = [board.rows[rowIndex].cells[cellIndex]];
+
+        // Check nửa trên
+        for (
+          let row = rowIndex - 1, cell = cellIndex + 1;
+          row >= 0 && cell < n;
+          row--, cell++
+        ) {
+          if (board.rows[row].cells[cell].textContent == turn) {
+            countDiagonal.push(board.rows[row].cells[cell]);
+          } else {
+            break;
+          }
+        }
+
+        // Check nửa dưới
+        for (
+          let row = rowIndex + 1, cell = cellIndex - 1;
+          row < n && cell >= 0;
+          row++, cell--
+        ) {
+          if (board.rows[row].cells[cell].textContent == turn) {
+            countDiagonal.push(board.rows[row].cells[cell]);
+          } else {
+            break;
+          }
+        }
+
+        if (countDiagonal.length >= 5) {
+          countDiagonal.forEach((i) => i.classList.add(turn + "win"));
+          return true;
+        }
+
+        return false;
+      }
+
+      reset.addEventListener("click", function () {
+        board.innerHTML = "";
+        board.append(createBoard());
+        end = !end;
+        count = 0;
+        turn = "X";
+        next.textContent = "Player: " + turn;
+        this.hidden = true;
+      });
+    </script>
+  </body>
+</html>

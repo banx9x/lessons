@@ -1,0 +1,113 @@
+@font-face {
+    font-family: CicularStdMedium;
+    src: url(../fonts/Circular\ Std\ Font.otf);
+}
+
+@font-face {
+    font-family: SofiaProMedium;
+    src: url(../fonts/Sofia\ Pro\ Medium\ Az.otf);
+}
+
+@font-face {
+    font-family: SofiaProBold;
+    src: url(../fonts/Sofia\ Pro\ Bold\ Az.otf);
+}
+
+img {
+    max-width: 100%;
+}
+
+.container {
+    width: 1440px;
+    max-width: 1440px;
+}
+
+.container > .row {
+    --bs-gutter-x: 40px;
+}
+
+.sidebar-wraper {
+    width: 17.5%;
+}
+
+.sidebar {
+    padding: 50px 0 50px 50px;
+}
+
+.main-wraper {
+    width: auto;
+}
+
+.logo {
+    max-width: 93px;
+    margin-bottom: 55px;
+}
+
+.nav-link img {
+    display: inline-block;
+    width: 24px;
+    margin-right: 10px;
+}
+
+.nav-header {
+    font-family: SofiaProBold;
+    font-size: 30px;
+    margin-bottom: 45px;
+}
+
+.nav-link {
+    font-family: SofiaProMedium;
+    font-size: 16px;
+    line-height: 24px;
+    color: #000000;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.icon-wraper {
+    width: 45px;
+    height: 45px;
+    background-color: #f6f6f6;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 16px;
+}
+
+.icon-wraper img {
+    margin: 0;
+}
+
+.main-wraper {
+    margin-bottom: 60px;
+}
+
+.main-wraper .nav-item {
+    margin-left: 40px;
+}
+
+.main-wraper .row {
+    --bs-gutter-x: 20px;
+    --bs-gutter-y: 20px;
+}
+
+.main-wraper .navbar {
+    padding: 0;
+    margin-top: 49px;
+    margin-bottom: 70px;
+}
+
+.actions {
+    margin-left: 40px;
+}
+
+.actions .user {
+    margin-left: 25px;
+}
+
+.nav-link.active::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: #000000;
+}

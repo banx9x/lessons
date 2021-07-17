@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo Application</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="js/script.js" defer></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row flex justify-between">
+                <div class="date-wrapper flex column">
+                    <span class="day"></span>
+                    <span class="date"></span>
+                </div>
+            </div>
+
+            <div class="row doing">
+                <div class="header">
+                    <p class="label flex">
+                        Chưa hoàn thành
+                        <span
+                            class="todo-number flex justify-center align-center"
+                        ></span>
+                    </p>
+                </div>
+
+                <div class="list">
+                    <ul class="todo-list"></ul>
+
+                    <div class="new-todo">
+                        <form action="" name="new">
+                            <input
+                                name="todo"
+                                type="text"
+                                class="todo-input"
+                                placeholder="Bạn muốn làm gì?"
+                            />
+                        </form>
+
+                        <button class="btn-cancel">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </div>
+
+                    <button class="btn-add">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Thêm công việc mới
+                    </button>
+                </div>
+            </div>
+
+            <div class="row completed">
+                <div class="header flex justify-between">
+                    <p class="label flex">
+                        Đã hoàn thành
+                        <span
+                            class="todo-number flex justify-center align-center"
+                        ></span>
+                    </p>
+
+                    <button class="btn-clear">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </div>
+
+                <div class="list">
+                    <ul class="todo-list"></ul>
+
+                    <button class="btn-more"></button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
