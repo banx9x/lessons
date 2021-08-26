@@ -39,6 +39,8 @@ const uploadAvatar = multer({
     },
 }).single("avatar");
 
+import Joi from "joi";
+
 const file = path.join(__dirname, "db.json");
 const adapter = new JSONFile(file);
 const db = new Low(adapter);
@@ -139,7 +141,26 @@ server.post("/api/signout", (req, res, next) => {
 });
 
 server.post("/api/signup", async (req, res, next) => {
-    let { username, password } = req.body;
+    let schema = Joi.object({
+        username: Joi.string()
+            .pattern(/^[a-zA-Z][a-zA-Z0-9]{5,19}$/)
+            .required()
+            .messages({
+                any: "Tên đăng nhập phải có độ dài 6 - 20 ký tự và số, không được chứa ký tự đặc biệt, không được bắt đầu bằng một số!!!",
+            }),
+        password: Joi.string().min(6).max(20).required().messages({
+            any: "Mật khẩu phải có độ dài 6 - 20 ký tự!!!",
+        }),
+    });
+
+    let { value, error } = schema.validate(req.body);
+
+    if (error) {
+        res.status(400).send(error.message);
+        return;
+    }
+
+    let { username, password } = value;
 
     let user = db.chain.get("users").find({ username }).value();
 
@@ -213,6 +234,10 @@ server.post("/api/uploadAvatar", isAuth, (req, res, next) => {
 });
 
 server.use("/api", isAuth, router);
+
+server.use((err, req, res) => {
+    console.log(err);
+});
 
 server.listen(3000, () => {
     console.log("Server is running on http://localhost:3000/");

@@ -9,7 +9,12 @@
     <body>
         Signin
 
-        <form name="demo" action="/api/upload" enctype="multipart/form-data" method="POST">
+        <form
+            name="demo"
+            action="/api/upload"
+            enctype="multipart/form-data"
+            method="POST"
+        >
             <input
                 type="file"
                 name="avatar"
@@ -18,5 +23,19 @@
             />
             <button type="submit">Upload</button>
         </form>
+
+        <script>
+            function async(callback) {
+                let xhr = new XMLHttpRequest();
+
+                xhr.open("GET", "/");
+                xhr.onload = () => callback(xhr.response);
+                xhr.send();
+            }
+
+            async(() => console.log("Get data"));
+
+            console.log(123);
+        </script>
     </body>
 </html>

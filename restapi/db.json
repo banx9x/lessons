@@ -1,10 +1,15 @@
 {
   "users": [
     {
-      "id": 3,
+      "id": 1,
       "username": "banx9x",
       "password": "123456",
       "avatar": "upload/avatar/banx9x-1626406393453.jpeg"
+    },
+    {
+      "id": 2,
+      "username": "a234324324",
+      "password": "123465"
     }
   ],
   "students": [
